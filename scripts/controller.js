@@ -5,10 +5,10 @@ var btnConnect = document.getElementById('connect');
 var btnDisConnect = document.getElementById('disconnect');
 var broker = document.getElementById('broker');
 var btnStatus = document.getElementById('status');
-function MyConnect(){
+function MyConnect() {
   alert("You are now successfully connected in MQTT!");
 }
-function MyDisconnect(){
+function MyDisconnect() {
   alert("You are now successfully disconnected from MQTT!");
 }
 
@@ -33,7 +33,7 @@ btnConnect.addEventListener('click', function (e) {
   btnSubscribe.addEventListener('click', function (e) {
     e.preventDefault();
     console.log(subTopic.value)
-    client.subscribe( subTopic.value);
+    client.subscribe(subTopic.value);
     btnUnsubscribe.disabled = false;
     btnSubscribe.disabled = true;
   })
@@ -43,7 +43,7 @@ btnConnect.addEventListener('click', function (e) {
     client.unsubscribe(subTopic.value);
     btnUnsubscribe.disabled = true;
     btnSubscribe.disabled = false;
-    console.log("Unsubscribe to mqtt/" + subTopic.value)
+    console.log("Unsubscribe to " + subTopic.value)
   })
 
   client.on("connect", function () {
@@ -69,15 +69,14 @@ btnConnect.addEventListener('click', function (e) {
 
 
   client.on("message", function (topic, payload) {
-    let finalTopic = topic.slice(5);
-    console.log([finalTopic, payload].join(": "));
+    console.log([topic, payload].join(": "));
     let tbl = document.getElementById('receiver');
     let tbody = document.getElementById('msg');
     let tr = document.createElement('tr');
     let msgTopic = document.createElement('td');
     let msgPayload = document.createElement('td');
     let msgTime = document.createElement('td');
-    msgTopic.appendChild(document.createTextNode(finalTopic));
+    msgTopic.appendChild(document.createTextNode(topic));
     msgPayload.appendChild(document.createTextNode(payload));
     msgTime.appendChild(document.createTextNode(moment().format('llll')));
     tr.appendChild(msgTopic);
@@ -93,7 +92,7 @@ btnConnect.addEventListener('click', function (e) {
 
   btnPublish.addEventListener('click', function (e) {
     e.preventDefault();
-    client.publish("mqtt/" + pubTopic.value, pubPayload.value)
+    client.publish(pubTopic.value, pubPayload.value)
   })
 });
 
