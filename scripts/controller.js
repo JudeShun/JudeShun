@@ -1,4 +1,4 @@
- // basic functionalities
+// basic functionalities
 
 //broker
 var btnConnect = document.getElementById('connect');
@@ -32,8 +32,8 @@ btnConnect.addEventListener('click', function (e) {
 
   btnSubscribe.addEventListener('click', function (e) {
     e.preventDefault();
-    console.log(subTopic.value)
-    client.subscribe(subTopic.value);
+    console.log("mqtt/" + subTopic.value)
+    client.subscribe( subTopic.value);
     btnUnsubscribe.disabled = false;
     btnSubscribe.disabled = true;
   })
@@ -93,7 +93,7 @@ btnConnect.addEventListener('click', function (e) {
 
   btnPublish.addEventListener('click', function (e) {
     e.preventDefault();
-    client.publish(pubTopic.value, pubPayload.value)
+    client.publish("mqtt/" + pubTopic.value, pubPayload.value)
   })
 });
 
